@@ -43,6 +43,11 @@ form #inputImage{
     background-color: yellowgreen;
     margin-top: 10px;
 }
+
+#originalCanvas{
+    display: hidden;
+}
+
 .warning{
     position:absolute;
     top: 10%;
