@@ -1,0 +1,81 @@
+
+main{
+    width:100%;
+}
+form{
+    width:500px;
+    display: flex;
+    flex-direction:column;
+    padding: 5px;
+    margin:10vh auto;
+}
+form label{
+    text-align: center;
+    font-size: 2em;
+    padding:10px;
+}
+form .txt{
+    resize:none;
+    height:90px
+}
+form button{
+    width: 130px;
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border:none;
+    margin:3vh auto;
+    text-transform: capitalize;
+    font-size:1.2em;
+    border-radius: 5px;
+    cursor:pointer;
+    transition: 0.3s ease-in-out;
+    border: 2px solid white;
+}
+form button:hover{
+    color:black;
+    border: 2px solid black;
+    background-color: white;
+    
+}
+form #inputImage{
+    border: none;
+    background-color: yellowgreen;
+    margin-top: 10px;
+}
+.warning{
+    position:absolute;
+    top: 10%;
+    left:47.5%;
+    color:red;
+}
+.posts{
+    width: 60%;
+    margin: 4em auto;
+    padding: 50px;
+    border:1px solid black;
+}
+
+img{
+    max-width: 50%;
+    position: relative;
+    left: 25%;
+}
+
+@media(max-width:980px){
+    form{
+        width:90%;
+    }
+    .posts{
+        width:90%;
+        border: none;
+        padding: 10px;
+    }
+    form button{
+        width: 90px;
+        padding: 5px;
+    }
+    img{
+        max-width: 50%;
+    }
+}
