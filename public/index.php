@@ -1,6 +1,9 @@
 <?php
 include_once('./upload.php');
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,33 +11,33 @@ include_once('./upload.php');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='./style/style.css'>
-    <title>Document</title>
+    <title>前期試験Systemk</title>
 </head>
 <body>
  <div class="form">
 <form method="post" action="">
   <label>Post Form</label>
-  <textarea name="text" class="txt"></textarea>
+  <textarea name="text" class="txt"></textarea> 
   <input id="inp_img" name="img" type="hidden" value="" >
-  <input id="inp_file" type="file" class='image'>
+  <input id="inp_file" type="file" class='image'> 
   <input id="bt_save" type="submit" value="Upload" class="button" name='submit'>
 </form>
 </div>
 <?php foreach ($data as $posts): ?>
     <div class="posts">
-        <?php $matches = []; ?>
+        <?php $checks = []; ?>
         <p id="<?php echo $posts['id']; ?>"><?php echo 'post_id' . " : " .$posts['id']; ?></p>
-          <?php if (1 === preg_match('/^>>[0-9]{1,}/', $posts['posts'], $matches)): ?>
-          <?php $id = substr($matches[0], 2)?>
-          <dd><a href="#<?php echo $id; ?>">>><?php echo $id ?></a></dd>
-          <dd><?php echo htmlspecialchars(preg_replace('/^>>[0-9]{1,}/', '', $posts['posts'])); ?></dd>
+          <?php if (1 === preg_match('/^>>[0-9]{1,}/', $posts['posts'], $checks)): ?>
+          <?php $id = substr($checks[0], 2)?>
+          <dd class='msg'><a href="#<?php echo $id; ?>">>><?php echo $id ?></a></dd>
+          <dd class="msg"><?php echo htmlspecialchars(preg_replace('/^>>[0-9]{1,}/', '', $posts['posts'])); ?></dd>
           <?php else: ?>
-          <dd><?php echo htmlspecialchars($posts['posts']); ?></dd>
+          <dd class = 'msg'><?php echo htmlspecialchars($posts['posts']); ?></dd>
           <?php endif; ?>
           <?php if (!empty($posts['imagename'])): ?>
           <dd><img src="../image/<?php echo htmlspecialchars($posts['imagename']);?>"></dd>
           <?php endif; ?>
-          <p>created_at: <?php echo $posts['created_at']; ?></p>
+          <p class='time'>created_at: <?php echo $posts['created_at']; ?></p>
       </div>
 <?php endforeach;?>
 <script>

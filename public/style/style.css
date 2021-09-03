@@ -54,7 +54,7 @@ form .image{
     color:red;
 }
 .posts{
-    width: 30%;
+    width: 40%;
     margin: 4em auto;
     padding: 50px;
     background-color: #e9c46a;
@@ -75,6 +75,16 @@ img{
 
 }
 
+.time{
+    text-align:center;
+    padding: 10px;
+    margin-top: 30px;    
+}
+
+.msg{
+    padding: 20px;
+}
+
 @media(max-width:980px){
     *{
         margin: 0;
@@ -89,7 +99,8 @@ img{
         border-radius: 0px;
         border-bottom: 1px solid black;
         padding: 10px;
-        background-color: yellowgreen;
+        background-color: #3d405b;
+        color: white;
     }
     form .button{
         width: 90px;
@@ -98,5 +109,9 @@ img{
     }
     img{
         max-width:50%;
+    }
+    a{
+        color: white;
+        text-decoration: none;
     }
 }
