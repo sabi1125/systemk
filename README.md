@@ -17,8 +17,8 @@ What am i using
 ---
 ## building the Docker files
 
-|docker-compose build|
-|docker-compose up|
+> docker-compose build
+> docker-compose up
 ---
 ## access to the database
 ---
