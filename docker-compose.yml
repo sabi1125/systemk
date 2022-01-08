@@ -21,7 +21,6 @@ services:
       - image:/var/www/public/image/
   mysql:
     container_name: mysql
-    platform: linux/x84_64
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: techc
