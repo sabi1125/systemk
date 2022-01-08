@@ -12,3 +12,7 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-install pdo_mysql
 RUN install -o www-data -g www-data -d /var/www/public/image
 RUN echo -e "post_max_size = 5M\nupload_max_filesize = 5M" >> ${PHP_INI_DIR}/php.ini
+RUN curl -sS https://getcomposer.org/installer | php -- \
+--install-dir=/usr/bin --filename=composer && chmod +x /usr/bin/composer
+RUN composer require "twig/twig:^3.0"
+RUN composer require twig/cssinliner-extra

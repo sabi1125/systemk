@@ -1,0 +1,29 @@
+{% block errors %}
+<div class="error">
+{% for err in errors %}
+<ul>
+<li>{{ err }}</ul>
+</ul>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+
+<style>
+.error{
+    width:100%;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    position:absolute;
+    color:red;
+}
+
+.error ul li {
+    list-style:none;  
+    padding:10px;
+}
+</style>

@@ -4,7 +4,7 @@ services:
   web:
     image: nginx:latest
     ports:
-      - 80:80
+      - 8080:80
     volumes:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
       - ./public/:/var/www/public/
@@ -21,6 +21,7 @@ services:
       - image:/var/www/public/image/
   mysql:
     container_name: mysql
+    platform: linux/x84_64
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: techc

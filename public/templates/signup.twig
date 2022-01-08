@@ -1,0 +1,59 @@
+{% extends "mainpage.twig" %}
+{% block title %}
+<title>Signup</title>
+{% endblock %}
+
+
+{% block main %}
+
+{% if errors %}
+
+{% include "components/errors.twig" with {"error" : errors} %}
+
+{% endif %}
+
+    <div class="signup">
+      <form action="" method="post">
+      <input type="text" name="Fullname" placeholder="Enter your Fullname">
+      <br>
+      <input type="email" name="email" placeholder="Enter your Email">
+      <br>
+      <input type="text" name="username" placeholder="Enter desired Username">
+      <br>
+      <input type="password" name="password" placeholder="Entered desired Password">
+      <br>
+      <input type="text" name="confirmPassword" placeholder="Confirm Password">
+      <br>
+      {% include "components/button.twig" with {"value":"sign up"} %}
+      </form>
+    </div>
+{% endblock %}
+
+
+{% block style %}
+
+<style>
+*{
+    padding:0;
+    margin:0;
+}
+.signup{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+.signup form {
+    display:flex;
+    height:38vh;
+    flex-direction:column;
+}
+
+.signup form input{
+    width: 500px;
+    padding: 10px;
+}
+</style>
+
+{% endblock %}
