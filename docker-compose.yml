@@ -7,8 +7,8 @@ services:
       - 8080:80
     volumes:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./public/:/var/www/public/
-      - image:/var/www/public/image/
+      - ./public/:/var/www/
+      - image:/var/www/image/
     depends_on:
       - php
   php:
@@ -17,13 +17,13 @@ services:
       context: .
       target: php
     volumes:
-      - ./public/:/var/www/public/
-      - image:/var/www/public/image/
+      - ./:/var/www
+      - image:/var/www/image/
   mysql:
     container_name: mysql
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: techc
+      MYSQL_DATABASE: 2022test
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
       TZ: Asia/Tokyo
     volumes:

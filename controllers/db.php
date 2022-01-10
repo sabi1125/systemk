@@ -1,8 +1,8 @@
-   <?php
+<?php
 
 class db{
 
-    private $dsn = "mysql:host=localhost;dbname=2022test";
+    private $dsn = "mysql:host=mysql;dbname=2022test";
     private $dbUser = "root";
     private $dbPass = "";
 

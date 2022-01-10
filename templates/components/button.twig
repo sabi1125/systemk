@@ -1,9 +1,9 @@
 {% block button %}
-      <button type="submit">{{ value }}</button>
+    <button type="submit" value={{ value }} name={{ name }}  class="btn">{{ id }}</button>
 {% endblock %}
 
 <style>
-.signup form button {
+.btn {
     width: 150px;
     background-color:coral;
     color:white;
@@ -15,4 +15,8 @@
     cursor:pointer;
     transition:0.5s ease-in-out;
 }
+
+ .btn:hover{
+    box-shadow: 0px 0px 0px rgba(0,0,0,0);
+ }
 </style>

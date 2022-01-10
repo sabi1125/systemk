@@ -1,7 +1,0 @@
-{
-    "require": {
-        "twig/twig": "^3.0",
-        "twig/cssinliner-extra": "^3.3",
-        "vlucas/phpdotenv": "^5.4"
-    }
-}

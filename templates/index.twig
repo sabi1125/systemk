@@ -14,12 +14,13 @@
 {% block main %}
    <div class="login">
       <form action="" method="post">
+      <h3>Signup</h3>
       <input type="text" name="username" placeholder="Username">
       <br>
       <input type="text" name="password" placeholder="password">
       <br>
-      {% include "components/button.twig" with {"value":"sign in"} %}
-      <p>Account持ってないなら<a href="controllers/signup.php">sign up</a></p>
+      {% include "components/button.twig" with {"name":"submit","value":"sign in","id":"signin"} %}
+      <p>Account持ってないなら<a href="signup.php">sign up</a></p>
    </form>
 
 {% endblock main %}
@@ -45,34 +46,32 @@
     display:flex;
     height:18vh;
     flex-direction:column;
+    text-align:center;
  }
+
+.login form h3 {
+    padding:20px;
+}
+
  .login form input{
     width: 500px;
     padding: 10px;
- }
- .login form button{
-    width: 150px;
-    background-color:coral;
-    color:white;
-    padding:15px;
-    border-radius: 5px;
-    box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
-    border: none;
-    margin:0 auto;
-    cursor:pointer;
-    transition:0.5s ease-in-out;
- }
- .login form button:hover{
-    box-shadow: 0px 0px 0px rgba(0,0,0,0);
- }
- .login form p {
-    text-align:center;
-    margin-top:20px;
  }
  .login form a{
     color: coral;
  }
 
+ .login form p{
+    padding:20px;
+ }
+
+
+
+@media (max-width:980px){
+    .login form input{
+        width: 95%;
+    }
+}
 </style>
 {% endblock %}
 </body>
