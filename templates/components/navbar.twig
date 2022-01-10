@@ -1,0 +1,36 @@
+{% block navbar %}
+<nav>
+<ul>
+    <li><a href="editProfile.php">Edit Profile</a></li>
+    <li><a href="#">test</a></li>
+    <li><a href="#">test</a></li>
+    <li><a href="logout.php">logout</a></li>
+</ul>
+</nav>
+{% endblock %}
+
+<style>
+* {
+    padding:0;
+    margin:0;
+}
+nav{
+    width: 90%;
+    padding: 30px;
+    margin: 0 auto;
+}
+nav ul {
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+
+}
+nav ul li{
+    list-style:none;
+}
+nav ul li a{
+    color: black;
+    text-decoration:none;
+}
+
+</style>

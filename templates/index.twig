@@ -12,12 +12,18 @@
 <main>
 
 {% block main %}
+{% if errors %}
+
+{% include "components/errors.twig" with {"error" : errors} %}
+
+{% endif %}
+
    <div class="login">
-      <form action="" method="post">
+      <form action="index.php" method="post">
       <h3>Signup</h3>
       <input type="text" name="username" placeholder="Username">
       <br>
-      <input type="text" name="password" placeholder="password">
+      <input type="password" name="password" placeholder="password">
       <br>
       {% include "components/button.twig" with {"name":"submit","value":"sign in","id":"signin"} %}
       <p>Account持ってないなら<a href="signup.php">sign up</a></p>
@@ -74,5 +80,10 @@
 }
 </style>
 {% endblock %}
+
+
+{% block script %}
+{% endblock %}
+
 </body>
 </html>

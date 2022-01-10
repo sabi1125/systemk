@@ -1,0 +1,72 @@
+{% extends "index.twig" %}
+{% block title %}
+<title>{{ username }}</title>
+{% endblock %}
+
+
+
+{% block main %}
+{% include "components/navbar.twig" %}
+<div class="main">
+<div class = "userInfo">
+{% if profilePic == null %}
+
+<h4><a href="changeProfilepic.php">no profile Pic
+<br>
+click here to change profile pic</a></h4>
+
+{% else %}
+<a href="changeProfilepic.php">
+<img src="image/{{ profilePic }}">
+</a>
+{% endif %}
+
+
+<p class="username"> @{{ username }} </p>
+
+{% if bio == null %}
+<p>add bio by clicking on the edit profile button</p>
+{% endif %}
+
+<a href="editProfile.php">edit profile</a>
+
+{{ bio }}
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block style %}
+
+<style>
+.main{
+    height:40vh;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    }
+.userInfo{
+    height:14vh;
+    width:100%;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-evenly;
+    }
+.userInfo .username {
+    color:#4c334d;
+    font-family:monospace;
+}
+.userInfo h4{
+    text-align:center;
+}
+
+.userInfo h4 a{
+    color:black;
+}
+</style>
+{% endblock %}
+
+

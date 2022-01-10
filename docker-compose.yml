@@ -7,8 +7,8 @@ services:
       - 8080:80
     volumes:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./public/:/var/www/
-      - image:/var/www/image/
+      - ./:/var/www/
+      - image:/var/www/public/image/
     depends_on:
       - php
   php:
@@ -17,8 +17,8 @@ services:
       context: .
       target: php
     volumes:
-      - ./:/var/www
-      - image:/var/www/image/
+      - ./:/var/www/
+      - image:/var/www/public/image/
   mysql:
     container_name: mysql
     image: mysql:5.7
