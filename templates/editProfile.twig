@@ -4,6 +4,13 @@
 {% endblock %}
 
 
+{% block profiler %}
+<div class="profiler">
+{% include "components/currentProfile.twig" with {"username" : currentUsername , "profilePic" : currentProfilePic } %}
+</div>
+{% endblock %}
+
+
 {% block main %}
 
 {% if errors %}
@@ -11,7 +18,6 @@
 {% include "components/errors.twig" with {"error" : errors} %}
 
 {% endif %}
-<a href="profile.php" class="back"><-back</a>
     <div class="edit">
       <form action="editProfile.php" method="post">
       <h3>EditProfile</h3>

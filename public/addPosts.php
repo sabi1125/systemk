@@ -51,4 +51,6 @@ if(isset($_POST["submit"])){
 
 
 
+$context["currentProfilePic"] = $_SESSION["profilePic"];
+$context["currentUsername"] = $_SESSION["username"];
 require_once(BASEPATH . '/libs/fin.php');

@@ -4,14 +4,24 @@
 {% endblock %}
 
 
+{% block profiler %}
+<div class="profiler">
+{% include "components/currentProfile.twig" with {"username" : currentUsername , "profilePic" : currentProfilePic } %}
+</div>
+{% endblock %}
+
+
+
 {% block main %}
+
+
 
 {% if errors %}
 
 {% include "components/errors.twig" with {"error" : errors} %}
 
 {% endif %}
-<a href="profile.php" class="back"><-back</a>
+
     <div class="edit">
     <form method="POST" action="./changeProfilepic.php" enctype="multipart/form-data">
     <h3>Add/Change Profile Picture</h3>

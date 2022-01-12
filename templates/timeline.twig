@@ -1,0 +1,29 @@
+{% extends "index.twig" %}
+{% block title %}
+<title>Timeline</title>
+{% endblock %}
+
+{% block profiler %}
+<div class="profiler">
+{% include "components/currentProfile.twig" with {"username" : currentUsername , "profilePic" : currentProfilePic } %}
+</div>
+{% endblock %}
+
+
+{% block main %}
+
+{% include "components/navbar.twig" %}
+
+<div class = "">
+</div>
+
+{% endblock %}
+
+{% block style %}
+
+<style>
+
+</style>
+{% endblock %}
+
+

@@ -5,6 +5,8 @@ session_start();
 
 $profile = new ProfileLogic();
 
+var_dump($_SESSION);
+
 $template_filename = 'editProfile.twig';
 $context = [];
 $errors = [];
@@ -27,4 +29,8 @@ if(isset($_POST["submit"])){
 }
 
 
+
+
+$context["currentProfilePic"] = $_SESSION["profilePic"];
+$context["currentUsername"] = $_SESSION["username"];
 require_once(BASEPATH . '/libs/fin.php');

@@ -6,6 +6,8 @@ if(isset($_SESSION["username"])){
     header("location:profile.php");
 }
 
+
+
 $login = new LoginLogic();
 $template_filename = 'index.twig';
 $context = [];

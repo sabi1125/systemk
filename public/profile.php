@@ -41,9 +41,11 @@ if($_GET){
     if($data === null){
         $context["bio"] = null;
         $context["profilePic"] = null;
+        $_SESSION["profilePic"] = null;
     }else{
         $context["bio"] = $data["bio"];
         $context["profilePic"] = $data["profilePic"];
+        $_SESSION["profilePic"] = $data["profilePic"];
     }
 }
 

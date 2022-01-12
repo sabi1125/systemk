@@ -4,6 +4,7 @@ require_once(__DIR__ . '/../controllers/profileController.php');
 
 session_start();
 
+
 $profile = new ProfileLogic();
 
 $template_filename = 'changeProfilepic.twig';
@@ -25,4 +26,6 @@ if(isset($_POST["submit"])){
 
 
 
+$context["currentProfilePic"] = $_SESSION["profilePic"];
+$context["currentUsername"] = $_SESSION["username"];
 require_once(BASEPATH . '/libs/fin.php');

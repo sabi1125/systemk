@@ -3,6 +3,7 @@ require_once(__DIR__ . '/../libs/init.php');
 require_once(__DIR__ . '/../controllers/searchController.php');
 session_start();
 
+
 $search = new SearchLogic();
 
 $template_filename = 'search.twig';
@@ -73,5 +74,11 @@ if(isset($_POST["bydate"])){
         }
     }
 }
+
+
+
+
+$context["currentProfilePic"] = $_SESSION["profilePic"];
+$context["currentUsername"] = $_SESSION["username"];
 
 require_once(BASEPATH . '/libs/fin.php');
