@@ -26,6 +26,6 @@ CREATE TABLE followers (
     id int(11) not null primary key auto_increment,
     follower int not null,
     following int not null
-)
+);
 
 ALTER TABLE users ADD birthday DATE NOT NULL;

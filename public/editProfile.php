@@ -5,7 +5,6 @@ session_start();
 
 $profile = new ProfileLogic();
 
-var_dump($_SESSION);
 
 $template_filename = 'editProfile.twig';
 $context = [];
