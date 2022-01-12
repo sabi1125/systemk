@@ -3,7 +3,7 @@ require_once(__DIR__ . '/../libs/init.php');
 require_once(__DIR__ . '/../controllers/searchController.php');
 session_start();
 
-$timeline = new SearchLogic();
+$search = new SearchLogic();
 
 $template_filename = 'search.twig';
 $context = [];
@@ -13,20 +13,27 @@ if(!isset($_SESSION["username"])){
     header("location:index.php");
 }
 
-
-
-
-
-
 //search by name
 
+
+
+
+
+
+
+
+
+
+
+
+
 if(isset($_POST["byname"])){
-    $checkIfFilled = $timeline->checkEmpty($_POST);
+    $checkIfFilled = $search->checkEmpty($_POST);
     if(!$checkIfFilled){
         array_push($errors, "You cannot search blank");
         $context["errors"] = $errors;
     }else{
-        $searchResults = $timeline->searchByName($_POST);
+        $searchResults = $search->searchByName($_POST);
         if((count($searchResults)) <= 0 ){
             array_push($errors, "There are no results that match this search");
             $context["errors"] = $errors;
@@ -42,15 +49,23 @@ if(isset($_POST["byname"])){
 
 
 
+
 //search by date
 
 if(isset($_POST["bydate"])){
-    $checkIfFilled = $timeline->checkEmpty($_POST);
+    $checkIfFilled = $search->checkEmpty($_POST);
     if(!$checkIfFilled){
         array_push($errors, "You have to set a date to search by date");
         $context["errors"] = $errors;
     }else{
-        
+        $checkIfValidDate = $search->checkIfValidDate($_POST);
+        if(!$checkIfValidDate){
+            array_push($errors, "please enter a valid date");
+            $context["errors"] = $errors;
+        }else{
+            $profilesByDate = $search->searchByDate($_POST);
+            $context["profiles"]=$profilesByDate;
+        }
     }
 }
 
