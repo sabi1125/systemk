@@ -41,11 +41,12 @@ class SearchLogic extends db {
     
     }
     public function searchByDate($data){
-        $sql = "SELECT users.id,users.username,profiles.profilePic FROM users INNER JOIN profiles ON users.id = profiles.u_id WHERE birthday BETWEEN :startDate AND :endDate";
+        $sql = "SELECT users.id,users.username,profiles.profilePic FROM users INNER JOIN profiles ON users.id = profiles.u_id WHERE birthday BETWEEN :startDate AND :endDate AND users.id != :id";
         $stmt = $this->connect()->prepare($sql);
         $objects= [
             ":startDate" => $data["startDate"],
             ":endDate" => $data["endDate"],
+            ":id" => $_SESSION["id"]
         ];
         $stmt->execute($objects);
         $fetchProfiles = $stmt->fetchAll();
