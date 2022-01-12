@@ -24,8 +24,10 @@ click here to change profile pic</a></h4>
 {% else %}
 
 <img src="image/{{ profilePic }}" class="profilePic">
-<a href="changeProfilepic.php" class="changeProf">Change ProfilePic</p></a>
 
+{% if owner %}
+<a href="changeProfilepic.php" class="changeProf">Change ProfilePic</p></a>
+{% endif %}
 {% endif %}
 
 

@@ -16,15 +16,20 @@ if(!isset($_SESSION["username"])){
 //search by name
 
 
+//users current user is following
+$listOfFollowingUsers = $search->peopleUserIsFollowing();
+$context["users"] = $listOfFollowingUsers;
+$context["count"] = count($context["users"]);
 
 
 
 
 
 
-
-
-
+//users following current user
+$listOfUsersFollowingYou = $search->peopleFollowingUser();
+$context["followers"] = $listOfUsersFollowingYou;
+$context["followersCount"] = count($context["followers"]);;
 
 
 if(isset($_POST["byname"])){

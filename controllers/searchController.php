@@ -55,4 +55,34 @@ class SearchLogic extends db {
         return $result;
     }
 
+    public function peopleUserIsFollowing(){
+        $followedUsers = [];
+        $sql = "SELECT users.username FROM users JOIN followers ON users.id = followers.following WHERE followers.following != :id AND followers.follower = :id ORDER BY users.id DESC";
+        $stmt = $this->connect()->prepare($sql);
+        $options = [
+            ":id" => $_SESSION["id"]
+        ];
+        $stmt->execute($options);
+        $result = $stmt->fetchAll();
+        foreach($result as $value){
+            array_push($followedUsers, $value["username"]);
+        }
+        return $followedUsers;
+    }
+
+    public function peopleFollowingUser(){
+        $followedUsers = [];
+        $sql = "SELECT users.username FROM users JOIN followers ON users.id = followers.follower  WHERE followers.following = :id AND followers.follower != :id ORDER BY users.id DESC";
+        $stmt = $this->connect()->prepare($sql);
+        $options = [
+            ":id" => $_SESSION["id"]
+        ];
+        $stmt->execute($options);
+        $result = $stmt->fetchAll();
+        foreach($result as $value){
+            array_push($followedUsers, $value["username"]);
+        }
+        return $followedUsers;
+    
+    }
 }

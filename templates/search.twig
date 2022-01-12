@@ -25,12 +25,6 @@
 </form>
 </div>
 
-
-
-
-
-
-
 <div class="searchResults">
 
 {% if profiles %}
@@ -42,14 +36,62 @@
 <div class="searchInfo">
 <img src=image/{{ pic }} class="resultProfileImage"> : <a href="profile.php?s={{ key }}"> {{ key }} </a>
 </div>
+
 {% endfor %}
 
 {% endif %}
 
+<div class="following">
+{% if count == 0 %}
+
+<strong>You are not following anyone currently.</strong>
+{% else %}
+<strong>Following: {{ count }}</strong>
+{% for user in users %}
+<ul class="followList"> 
+<li>
+<a href="profile.php?s={{ user }}"> {{ user }}</a>
+</li>
+ </ul>
+{% endfor %}
+
+{% endif %}
 </div>
 
 
+
+<div class="follower">
+{% if followersCount == 0 %}
+
+<strong>Nobody is currently Following you</strong>
+{% else %}
+<strong>Followers: {{ followersCount }}</strong>
+{% for follower in followers %}
+<ul class="followList"> 
+<li>
+<a href="profile.php?s={{ follower }}"> {{ follower }}</a>
+</li>
+ </ul>
+{% endfor %}
+
+{% endif %}
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
 {% endblock %}
+
+
+
+
 
 
 {% block style %}
@@ -58,6 +100,9 @@
 *{
     padding:0;
     margin:0;
+}
+li{
+    list-style:none;
 }
 
 .btn{
@@ -99,6 +144,15 @@
     width:30px;
     border-radius:50%;
     border:5px solid blue;
+}
+.following{
+    width:70%;
+    text-align:center;
+    padding:10px;
+}
+.followList{
+    padding:10px;
+    margin:20px;
 }
 </style>
 
