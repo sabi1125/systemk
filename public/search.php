@@ -49,6 +49,8 @@ if(isset($_POST["bydate"])){
     if(!$checkIfFilled){
         array_push($errors, "You have to set a date to search by date");
         $context["errors"] = $errors;
+    }else{
+        
     }
 }
 

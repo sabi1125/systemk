@@ -30,5 +30,8 @@ class SearchLogic extends db {
         return $result;
     }
 
+    public function searchByDate($data){
+        var_dump($data);
+    }
 
 }

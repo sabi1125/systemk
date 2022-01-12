@@ -49,13 +49,14 @@ class SignupLogic extends db{
         }
         //hash password
         $hashPass = password_hash($data["password"],PASSWORD_DEFAULT);
-        $insertSql = "INSERT INTO users (fullname,email,username,password) VALUES(:fullname,:email,:username,:password)";
+        $insertSql = "INSERT INTO users (fullname,email,username,password,birthday) VALUES(:fullname,:email,:username,:password,:birthday)";
         $insertStmt = $this->connect()->prepare($insertSql);
         $insertObjects = [
             "fullname"=>$data["fullname"],
             "email"=>$data["email"],
             "username"=>$data["username"],
             "password"=>$hashPass,
+            "birthday"=>$data["birthday"]
         ];
         $insertStmt->execute($insertObjects);
         //create a default profile

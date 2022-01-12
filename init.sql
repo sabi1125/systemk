@@ -3,7 +3,7 @@ CREATE TABLE users (
     fullname varchar(256) not null,
     email varchar(256) not null,
     username varchar(256) not null,
-    password varchar(256) not null
+    password varchar(256) not null,
 );
 
 CREATE TABLE profiles (
@@ -27,3 +27,5 @@ CREATE TABLE followers (
     follower int not null,
     following int not null
 )
+
+ALTER TABLE users ADD birthday DATE NOT NULL;
