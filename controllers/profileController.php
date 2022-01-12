@@ -62,13 +62,25 @@ class ProfileLogic extends db {
 
 
 
+    public function getProfileWithUsername($username){
+        $sql = "SELECT users.username,profiles.bio,profiles.profilePic FROM users INNER JOIN profiles profiles on users.id = profiles.u_id WHERE username = :username";
+        $stmt = $this->connect()->prepare($sql);
+        $objects = [
+            ":username" => $username
+        ];
+        $stmt->execute($objects);
+        $count = $stmt->rowCount();
+        $result = $stmt->fetch();
+        return $result;
+    }
+
 
     public function upsertProfilePicture($data){
         $check = $this->getProfile($data["uid"]);
         $image_filename = null;
         if (!empty($data['image_base64'])) {
 
-        $base64 = preg_replace('/^data:.+base64,/', '', $_POST['image_base64']);
+        $base64 = preg_replace('/^data:.+base64,/', '', $data['image_base64']);
 
         $image_binary = base64_decode($base64);
 
@@ -95,4 +107,46 @@ class ProfileLogic extends db {
 
     }
 }
+
+
+public function getUserIdByUsername($username){
+    $sql = "SELECT id FROM users WHERE username = :username";
+    $stmt = $this->connect()->prepare($sql);
+    $options= [":username" => $username];
+    $stmt->execute($options);
+    $id = $stmt->fetch();
+    return $id;
 }
+
+
+public function checkIfFollowing($username) {
+    $followingId = $this->getUserIdByUsername($username);
+    $sql = "SELECT * FROM followers WHERE follower = :follower AND following = :following";
+    $stmt = $this->connect()->prepare($sql);
+    $options=[
+        ":follower" => $_SESSION["id"],
+        ":following" => $followingId["id"]
+    ];
+    $stmt->execute($options);
+    $count= $stmt->rowCount();
+    if($count > 0){
+        return true;
+    }
+    return false;
+}
+
+
+public function followProfile($username){
+    $followingId = $this->getUserIdByUsername($username);
+    $followerId = $_SESSION["id"];
+    $sql = "INSERT INTO followers (follower,following) VALUES (:follower,:following)";
+    $stmt = $this->connect()->prepare($sql);
+    $options = [
+        ":follower" => $followerId,
+        ":following" => $followingId["id"]
+    ];
+    $stmt->execute($options);
+}
+
+}
+

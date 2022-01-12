@@ -34,6 +34,7 @@ class SignupLogic extends db{
 
     public function insert($data) {
         $errors = [];
+        //check for duplilcates
         $sql="Select * From users where username =:username or email =:email";
         $stmt = $this->connect()->prepare($sql);
         $objects = [
@@ -46,6 +47,7 @@ class SignupLogic extends db{
             array_push($errors, 'username already taken or the email adderess is already in use');
             return $errors;
         }
+        //hash password
         $hashPass = password_hash($data["password"],PASSWORD_DEFAULT);
         $insertSql = "INSERT INTO users (fullname,email,username,password) VALUES(:fullname,:email,:username,:password)";
         $insertStmt = $this->connect()->prepare($insertSql);
@@ -56,6 +58,22 @@ class SignupLogic extends db{
             "password"=>$hashPass,
         ];
         $insertStmt->execute($insertObjects);
+        //create a default profile
+        $profileSql="Select id From users where username =:username or email =:email";
+        $profileStmt = $this->connect()->prepare($profileSql);
+        $profileObjects = [
+            "username"=>$data["username"],
+            "email"=>$data["email"]
+        ];
+        $profileStmt->execute($profileObjects);
+        $fetchId = $profileStmt->fetch();
+        $createProfileSql = "INSERT INTO profiles (u_id) VALUES (:uid)";
+        $creteProfileStmt = $this->connect()->prepare($createProfileSql);
+        $createProfileOptions = [
+            ':uid' => $fetchId['id'],
+        ];
+        $creteProfileStmt->execute($createProfileOptions);    
+
         return true;
     }
 }

@@ -13,3 +13,17 @@ CREATE TABLE profiles (
     profilePic varchar(256),
     foreign key (u_id) references users(id)
 );
+
+CREATE TABLE posts (
+    id int(11) not null primary key auto_increment,
+    u_id int(11) not null,
+    post varchar(256) not null,
+    image varchar(256),
+    foreign key (u_id) REFERENCES users(id)
+);
+
+CREATE TABLE followers (
+    id int(11) not null primary key auto_increment,
+    follower int not null,
+    following int not null
+)

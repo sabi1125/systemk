@@ -21,7 +21,7 @@ services:
       - image:/var/www/public/image/
   mysql:
     container_name: mysql
-    image: mariadb:10.5.8
+    image: mysql:5.7
     environment:
       MYSQL_DATABASE: 2022test
       MYSQL_ALLOW_EMPTY_PASSWORD: 1

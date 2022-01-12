@@ -8,17 +8,24 @@
 {% block main %}
 {% include "components/navbar.twig" %}
 
-<div class="main">
 <div class = "userInfo">
+
 {% if profilePic == null %}
 
+{% if owner %}
 <h4><a href="changeProfilepic.php">no profile Pic
 <br>
 click here to change profile pic</a></h4>
 
 {% else %}
+<p>No profile pic available</p>
+{% endif %}
+
+{% else %}
 
 <img src="image/{{ profilePic }}" class="profilePic">
+<a href="changeProfilepic.php" class="changeProf">Change ProfilePic</p></a>
+
 {% endif %}
 
 
@@ -28,11 +35,23 @@ click here to change profile pic</a></h4>
 <p>add bio by clicking on the edit profile button</p>
 {% endif %}
 
-<a href="editProfile.php">edit profile</a>
 
-{{ bio }}
+<p class="bio">{{ bio }}</p>
+{% if owner %}
+<a href="editProfile.php" class="editProfile">Edit profile</a>
+{% else %}
 
-</div>
+{% if follow %}
+
+<strong>Following</strong>
+
+{% else %}
+
+<a href="profile.php?f={{ username }}">Follow</a>
+
+{% endif %}
+
+{% endif %}
 </div>
 
 {% endblock %}
@@ -40,17 +59,15 @@ click here to change profile pic</a></h4>
 {% block style %}
 
 <style>
-.main{
-    height:30vh;
-    padding:20px;
-    }
 .userInfo{
-    height:100%;
-    width:100%;
+    width:80%;
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:space-around;
+    text-align:center;
+    margin:7vh auto;
+    padding:20px;
     }
 .userInfo .username {
     color:#4c334d;
@@ -63,6 +80,18 @@ click here to change profile pic</a></h4>
 .userInfo h4 a{
     color:black;
 }
+.changeProf{
+    color: black;
+    text-decoration:none;
+    font-size:12px;
+    padding:5px;
+    transition:0.5s ease-in-out;
+}
+.changeProf:hover{
+    background:coral;
+    color:white;
+    border-radius:5px;
+}
 .userInfo .profilePic{
     max-width:150px;
     border-radius:50%;
@@ -72,7 +101,21 @@ click here to change profile pic</a></h4>
     border: 5px solid lightblue;
     object-fit: cover;
 }
-
+.bio{
+    padding:5px;
+}
+.username{
+    padding:15px;
+}
+.editProfile{
+    padding:10px;
+    transition:0.3s ease-in-out;
+}
+.editProfile:hover{
+    background:coral;
+    color:white;
+    border-radius:5px;
+}
 </style>
 {% endblock %}
 

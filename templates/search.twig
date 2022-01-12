@@ -1,0 +1,105 @@
+{% extends "index.twig" %}
+{% block title %}
+<title>Edit Profile</title>
+{% endblock %}
+
+
+{% block main %}
+{% include "components/navbar.twig" %}
+{% if errors %}
+{% include "components/errors.twig" with {"error" : errors} %}
+{% endif %}
+
+
+<div class="form">
+<form action="search.php" method="POST" class="byDate">
+    <input type="text" name="name" class="search" placeholder="search by name">
+    {% include "components/button.twig" with {"name":"byname","value":"search","id":"Search By Date"} %}
+</form>
+
+<form action="search.php" method="POST" class="byDate">
+    <input type="date" name="startDate" class="search">
+    <br>
+    <input type="date" name="endDate" class="search">
+    {% include "components/button.twig" with {"name":"bydate","value":"search","id":"Search By Date"} %}
+</form>
+</div>
+
+
+
+
+
+
+
+<div class="searchResults">
+
+{% if profiles %}
+
+<a href="search.php">close</a>
+
+{% for key, pic in profiles %}
+
+<div class="searchInfo">
+<img src=image/{{ pic }} class="resultProfileImage"> : <a href="profile.php?s={{ key }}"> {{ key }} </a>
+</div>
+{% endfor %}
+
+{% endif %}
+
+</div>
+
+
+{% endblock %}
+
+
+{% block style %}
+
+<style>
+*{
+    padding:0;
+    margin:0;
+}
+
+.btn{
+    background:blueviolet;
+}
+.search {
+    padding:10px;
+}
+.form{
+    width:50%;
+    margin:10vh auto;
+    display:flex;
+    text-align:center;
+    justify-content:space-around;
+}
+.byDate{
+    display:flex;
+}
+.searchResults{
+    width:10%;
+    height:200px;
+    margin:0 auto;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-evenly;
+    position:relative;
+}
+.searchInfo{
+    width:80%;
+    display:flex;
+    justify-content:start;
+    align-items:center;
+}
+.resultProfileImage{
+    max-width:100%;
+    height:30px;
+    width:30px;
+    border-radius:50%;
+    border:5px solid blue;
+}
+</style>
+
+{% endblock %}
