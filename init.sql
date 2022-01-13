@@ -28,4 +28,11 @@ CREATE TABLE followers (
     following int not null
 );
 
+CREATE TABLE likedPost (
+    id int(11) not null primary key auto_increment,
+    post_id int(11) not null,
+    liker int(11) not null
+);
+
 ALTER TABLE users ADD birthday DATE NOT NULL;
+ALTER TABLE likedPost ADD FOREIGN KEY (post_id) REFERENCES posts(id);
