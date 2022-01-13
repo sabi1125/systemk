@@ -16,36 +16,14 @@ if(!isset($_SESSION["username"])){
 }
 
 if(isset($_POST["submit"])){
-    $data = [];
-    $data["image_base64"] = $_POST["image_base64"];
-    $data["post"] = $_POST["post"];
-     
-
-    $checkIfFilled = $post->checkEmpty($data);
-
+    $checkIfFilled = $post->checkEmpty($_POST);
     if(!$checkIfFilled) {
-        array_push($errors, "You cannot post nothing");
+        array_push($errors, "You have to add a post / you cannot just post an image without a post");
         $context["errors"] = $errors;
-    }else if($_POST["image_base64"] === ""){
-        $insertPost = $post->insertPost([$data]);
-        if($insertPost){
-            header("location:profile.php");
-        }else{
-            array_push($errors, "internal error");
-            $context["errors"] = $errors;    
-        }
-    }else if($_POST["image_base64"] !== "" && $_POST["post"] === ""){ 
-        array_push($errors, "You need to write something along with the picture");
-        $context["errors"] = $errors;    
     }else{
-        $insertPost = $post->insertPost($data);
-        if($insertPost){
-            header("location:profile.php");
-        }else{
-            array_push($errors, "internal error");
-            $context["errors"] = $errors;    
-        }
+        $post->insertPost($_POST);
     }
+
 }
 
 

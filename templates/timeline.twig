@@ -9,21 +9,141 @@
 </div>
 {% endblock %}
 
-
 {% block main %}
 
 {% include "components/navbar.twig" %}
 
-<div class = "">
+
+{% if count < 1%}
+no posts
+{% endif %}
+
+<div class="timeline">
+
+
+{% for chunk in userAndPost %}
+<div class="posts">
+<div class="top">
+<img src="/image/{{chunk.profilePic}}" class="profilePic">
+<div class="postUser">
+<p><a href="profile.php?s={{chunk.username}}" class="username">{{ chunk.fullname }}</a></p>
+<p class="post">{{ chunk.post }}</p>
+</div>
 </div>
 
+<div class="image">
+{% if chunk.image == "" %}
+{% else %}
+<img src="/image/{{chunk.image}}" class="pic">
+{% endif %}
+</div>
+{% set ids = chunk.id %}
+
+{% for like in likes %}
+{% for key,l in like %}
+{% if key == ids %}
+{% if l %}
+<a href="likes.php?id={{chunk.id}}"><img src="/util/active.svg" class="like"></a>
+{% else %}
+<a href="likes.php?id={{chunk.id}}"><img src="/util/inactive.svg" class="like"></a>
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endfor %}
+:
+{% for lcount in likesCount %}
+{% for key,c in lcount %}
+{% if key == ids %}
+{{c}}
+{% endif %}
+{% endfor %}
+{% endfor %}
+</div>
+
+
+{% endfor %}
+</div>
+<form name="form" method="post" action="timeline.php">
+    <input type="hidden" id= "int" name="int" >
+</form>
+
 {% endblock %}
+
 
 {% block style %}
 
 <style>
-
+.timeline{
+    width:35%;
+    margin:0 auto;
+}
+.username{
+    text-transform:capitalize;
+    font-family:monospace;
+    text-decoration:none;
+    font-weight:bolder;
+    color:#001011;
+    padding:5px;
+}
+.profilePic{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    border:2px solid #98CE00;
+}
+.postUser{
+}
+.posts{
+    border-bottom:1px solid grey;
+    padding:20px;
+}
+.post{
+    font-family:monospace;
+    font-weight:lighter;
+    padding:9px;
+}
+.top{
+    padding:20px;
+    display:flex;
+    margin-bottom:30px;
+}
+.like{
+    width:15px;
+    fill:red;
+}
+.image{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:30px;
+}
+.pic {
+    border-radius:5px;
+    box-shadow:2px 5px 5px rgba(0,0,0,0.5);
+    height:500px;
+}
 </style>
 {% endblock %}
 
+{% block script %}
+<script>
+console.log({{count}})
+document.addEventListener("DOMContentLoaded", function(event) { 
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(20, scrollpos);
+        });
 
+        window.onbeforeunload = function(e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+window.addEventListener("scroll",()=>{
+    var Myelement = document.forms["form"]["int"]
+    var i= {{count}} + 3
+    if(window.scrollY + window.innerHeight  >= document.documentElement.scrollHeight){
+        Myelement.setAttribute('value',i)
+        document.forms['form'].submit()
+    }
+})
+</script>
+
+{% endblock %}
