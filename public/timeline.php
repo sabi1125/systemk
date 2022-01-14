@@ -15,8 +15,11 @@ if(!isset($_SESSION["username"])){
     header("location:index.php");
 }
 
-if(isset($_POST["int"])){
-    $userAndPost = $timeline->getFollowingPosts($_POST["int"]);
+$countOfAllPosts = $timeline->getTotalPostsForCurrentProfile();
+var_dump($countOfAllPosts);
+
+if(isset($_POST["limit"])){
+    $userAndPost = $timeline->getFollowingPosts($_POST["limit"]);
 }
 else{
     $userAndPost = $timeline->getFollowingPosts(5);
@@ -34,6 +37,11 @@ foreach($userAndPost as $value){
     array_push($totalLikes,$likesCount);
 }
 
+if(isset($_POST["like"])){
+    $check = $timeline->checkIfLiked($_POST["postid"]);
+    $timeline->like($_POST["postid"]);
+    header("location:timeline.php");
+}
 
 
 $context["count"]=count($userAndPost);
@@ -41,6 +49,8 @@ $context["likes"] = $likes;
 $context["likesCount"] = $totalLikes;
 $context["currentProfilePic"] = $_SESSION["profilePic"];
 $context["currentUsername"] = $_SESSION["username"];
+$context["allPostCount"] = $countOfAllPosts;
+
 
 require_once(BASEPATH . '/libs/fin.php');
 

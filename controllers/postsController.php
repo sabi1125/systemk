@@ -6,7 +6,7 @@ class PostsLogic extends db{
             return false;
         }
         if($data["post"] === "" && $data["image_base64"] !== ""){
-            return false;
+            return true;
         }
         if($data["post"] !== "" && $data["image_base64"] === ""){
             return true;
@@ -38,14 +38,13 @@ class PostsLogic extends db{
             $stmt->execute($objects);
 }
 
-    public function getFollowingPosts($lit){
-        $li = $lit;
+    public function getFollowingPosts($limit){
         $sql = "SELECT profiles.profilePic,users.fullname,users.username,posts.post,posts.image,posts.id FROM
         users JOIN profiles ON users.id = profiles.u_id 
         JOIN posts ON profiles.u_id = posts.u_id 
         JOIN followers ON posts.u_id = followers.following 
         WHERE followers.following != :id 
-        and followers.follower = :id ORDER BY posts.id DESC LIMIT $li ;
+        and followers.follower = :id ORDER BY posts.id DESC LIMIT $limit ;
         ";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([
@@ -53,6 +52,20 @@ class PostsLogic extends db{
         ]);
         $followingPosts = $stmt->fetchAll();
         return $followingPosts;
+    }
+
+    public function getTotalPostsForCurrentProfile(){
+        $sql = "SELECT posts.id FROM posts 
+        JOIN followers ON posts.u_id = followers.following 
+        WHERE followers.following != :id
+        AND followers.follower = :id
+        ";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([
+            ":id" => $_SESSION["id"],
+        ]);
+        $count = $stmt->rowCount();
+        return $count;
     }
 
     

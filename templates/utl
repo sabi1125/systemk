@@ -11,7 +11,6 @@
 
 {% block main %}
 
-
 {% include "components/navbar.twig" %}
 
 
@@ -44,15 +43,10 @@ no posts
 {% for key,l in like %}
 {% if key == ids %}
 {% if l %}
-<form method="post" action = "timeline.php">
-    <input type="hidden" id= "postid" name="postid" value={{ids}}>
-<button type="submit" name="like"><img src="/util/active.svg" class="like"></a>
-</form>
+<a href="likes.php?id={{chunk.id}}"><img src="/util/active.svg" class="like"></a>
 {% else %}
-<form name="like" method="post" action = "timeline.php">
-    <input type="hidden" id= "postid" name="postid" value={{ids}}>
-<button type="submit" name="like"><img src="/util/inactive.svg" class="like"></a>
-</form>{% endif %}
+<a href="likes.php?id={{chunk.id}}"><img src="/util/inactive.svg" class="like"></a>
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endfor %}
@@ -66,13 +60,13 @@ no posts
 {% endfor %}
 </div>
 
+
 {% endfor %}
+</div>
 <form name="form" method="post" action="timeline.php">
-    <input type="hidden" id= "limit" name="limit">
+    <input type="hidden" id= "int" name="int" >
 </form>
 
-
-<p id="end"></p>
 {% endblock %}
 
 
@@ -132,9 +126,8 @@ no posts
 {% endblock %}
 
 {% block script %}
-
 <script>
-
+console.log({{count}})
 document.addEventListener("DOMContentLoaded", function(event) { 
             var scrollpos = localStorage.getItem('scrollpos');
             if (scrollpos) window.scrollTo(20, scrollpos);
@@ -143,29 +136,67 @@ document.addEventListener("DOMContentLoaded", function(event) {
         window.onbeforeunload = function(e) {
             localStorage.setItem('scrollpos', window.scrollY);
         };
-
-
-const check = ()=>{
-    let test = {{allPostCount}} > {{count}}
-    return test
-}
-
-if(check()){
-
-window.addEventListener("scroll" , ()=>{
-
-    var formElement = document.forms["form"]["limit"]
-    if(window.scrollY + window.innerHeight >= document.documentElement.scrollHeight){
-        let increasedValue = {{count}} + 3
-        formElement.setAttribute("value", increasedValue)
-        document.forms["form"].submit()
+window.addEventListener("scroll",()=>{
+    var Myelement = document.forms["form"]["int"]
+    var i= {{count}} + 3
+    if(window.scrollY + window.innerHeight  >= document.documentElement.scrollHeight){
+        Myelement.setAttribute('value',i)
+        document.forms['form'].submit()
     }
 })
-}else{
-    document.getElementById("end").innerHTML = "No more posts";
-}
-
-
 </script>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$errors = [];
+$likes = [];
+$totalLikes = [];
+if(!isset($_SESSION["username"])){
+    header("location:index.php");
+}
+
+if(isset($_POST["int"])){
+    $userAndPost = $timeline->getFollowingPosts($_POST["int"]);
+}
+else{
+    $userAndPost = $timeline->getFollowingPosts(4);
+}
+
+$numOfItems = count($userAndPost);
+$context["userAndPost"] = $userAndPost;
+
+foreach($userAndPost as $value){
+    $check = $timeline->checkIfLiked($value["id"]);
+    $numberOfLikes = $timeline->totalLikes($value["id"]);
+    $likeResult = [$value["id"] => $check];
+    $likesCount = [$value["id"] => count($numberOfLikes)];
+    array_push($likes,$likeResult);
+    array_push($totalLikes,$likesCount);
+}
+
+
+
+$context["count"]=count($userAndPost);
+$context["likes"] = $likes;
+$context["likesCount"] = $totalLikes;
+$context["currentProfilePic"] = $_SESSION["profilePic"];
+$context["currentUsername"] = $_SESSION["username"];
+
+
