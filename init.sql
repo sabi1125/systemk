@@ -3,7 +3,7 @@ CREATE TABLE users (
     fullname varchar(256) not null,
     email varchar(256) not null,
     username varchar(256) not null,
-    password varchar(256) not null,
+    password varchar(256) not null
 );
 
 CREATE TABLE profiles (

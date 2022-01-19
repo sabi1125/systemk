@@ -3,12 +3,12 @@ version: "3"
 services:
   web:
     image: nginx:latest
-    ports:
-      - 8080:80
+    ports: 
+      - 80:80
     volumes:
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
-      - ./:/var/www/
-      - image:/var/www/public/image/
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+      - ./app:/app
+      - ./app:/app/image/
     depends_on:
       - php
   php:
@@ -17,11 +17,11 @@ services:
       context: .
       target: php
     volumes:
-      - ./:/var/www/
-      - image:/var/www/public/image/
+      - ./app:/app
+      - image:/app/image/
   mysql:
     container_name: mysql
-    image: mysql:5.7
+    image: mariadb:10.5.8
     environment:
       MYSQL_DATABASE: 2022test
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
@@ -32,7 +32,12 @@ services:
       mysqld
       --character-set-server=utf8mb4
       --collation-server=utf8mb4_unicode_ci
-      --max_allowed_packet=4MB
+      --max_allowed_packet=4mb
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
 volumes:
   image:
     driver: local
